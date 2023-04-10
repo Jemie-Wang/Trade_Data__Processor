@@ -8,9 +8,9 @@ class Record {
     long totalPrice;
     int minPrice;
     int maxPrice;
-    Record(int timeStamp, String symbol, int volume, int price){
+
+    Record(int timeStamp, String symbol, int volume, int price) {
         this.symbol = symbol;
-        // 要考虑超过integer范围的情况吗????
         this.volume = volume;
         this.totalPrice = this.volume * price;
         this.minPrice = price;
@@ -20,9 +20,9 @@ class Record {
 
     }
 
-    void update(int timeStamp, int currVolume, int price){
+    void update(int timeStamp, int currVolume, int price) {
         this.volume += currVolume;
-        this.totalPrice += currVolume * price;
+        this.totalPrice += (long) currVolume * price;
         this.minPrice = Math.min(price, this.minPrice);
         this.maxPrice = Math.max(price, this.maxPrice);
         this.maxTimeGap = Math.max(timeStamp - this.lastTime, this.maxTimeGap);
@@ -30,15 +30,13 @@ class Record {
     }
 
     @Override
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
+    public String toString() {
         long weightedAveragePrice = this.totalPrice / this.volume;
-        sb.append(symbol + ",");
-        sb.append(maxTimeGap + ",");
-        sb.append(volume + ",");
-        sb.append(weightedAveragePrice + ",");
-        sb.append(minPrice + ",");
-        sb.append(maxPrice + ",");
-        return sb.toString();
+        return symbol + "," +
+                maxTimeGap + "," +
+                volume + "," +
+                weightedAveragePrice + "," +
+                minPrice + "," +
+                maxPrice;
     }
 }
