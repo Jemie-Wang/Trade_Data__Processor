@@ -31,7 +31,7 @@ public class DataIOManager {
     public void execute() {
         logger.log(Level.INFO, "Processing data for date " + java.time.LocalDate.now());
         Path path = Paths.get(inputPath);
-
+//
         // Calculate the number of chunks
         long lineCount = 0;
         try {
@@ -41,6 +41,7 @@ public class DataIOManager {
         }
         int chunkCount = (int) Math.ceil((double) lineCount / CHUNK_SIZE);
         DataTypeSorter sorter = new DataTypeSorter(this.mainPanel, this.symbolInterested);
+//
 
         // Read and process data by chunk
         for (int i = 0; i < chunkCount; i++) {
