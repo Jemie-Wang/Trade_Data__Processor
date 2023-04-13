@@ -1,10 +1,19 @@
+/**
+ * I tried to let one thread to read from the stdin and one write to stdout but failed,
+ * And I think with scanner/ buffer reader I will never be able to do so
+ * because the scanner could not read the thing write by other thread or its own thread
+ * whenever it's written before or after the scanner is build
+ * */
 package com.example.trade_processor;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,7 +50,6 @@ public class DataIOManager {
         }
         int chunkCount = (int) Math.ceil((double) lineCount / CHUNK_SIZE);
         DataTypeSorter sorter = new DataTypeSorter(this.mainPanel, this.symbolInterested);
-//
 
         // Read and process data by chunk
         for (int i = 0; i < chunkCount; i++) {
